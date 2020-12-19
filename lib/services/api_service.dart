@@ -9,6 +9,8 @@ import 'package:pMovie/models/tv_series.dart';
 class ApiService {
   static final _baseUrl = "https://api.themoviedb.org/3/";
   static final _apiKey = "1a97f3b8d5deee1d649c0025f3acf75c";
+  static final posterUrl = "https://image.tmdb.org/t/p/w342";
+  static final backdropUrl = "https://image.tmdb.org/t/p/w780";
 
   Future<List<Media>> fetchMovieList() async {
     final url = _baseUrl + "discover/movie";

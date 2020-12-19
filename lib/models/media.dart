@@ -7,6 +7,7 @@ class Media {
   final DateTime releaseDate;
   final int voteCount;
   final String posterPath;
+  final String backdropPath;
   final MediaType mediaType;
 
   Media({
@@ -15,7 +16,8 @@ class Media {
     @required this.releaseDate,
     @required this.voteCount,
     @required this.mediaType,
-    this.posterPath,
+    @required this.posterPath,
+    @required this.backdropPath,
   });
 
   factory Media.fromJson(Map<String, dynamic> json, MediaType type) {
@@ -23,17 +25,22 @@ class Media {
       return Media(
         id: json['id'],
         title: json['title'],
-        releaseDate: json['release_date'],
+        releaseDate: DateTime.parse(json['release_date']),
         voteCount: json['vote_count'],
         mediaType: type,
+        posterPath: json['poster_path'],
+        backdropPath: json['backdrop_path'],
       );
     } else if (type == MediaType.series) {
       return Media(
         id: json['id'],
         title: json['name'],
-        releaseDate: json['first_air_date'],
+        // first_air_date is causing parse error
+        releaseDate: DateTime.now(),
         voteCount: json['vote_count'],
         mediaType: type,
+        posterPath: json['poster_path'],
+        backdropPath: json['backdrop_path'],
       );
     } else {
       return null;

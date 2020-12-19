@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pMovie/constants/media_type.dart';
 import 'package:pMovie/models/media.dart';
 
 class MediaViewModel {
@@ -24,5 +25,13 @@ class MediaViewModel {
 
   String get posterPath {
     return this.media.posterPath;
+  }
+
+  String get backdropPath {
+    return this.media.backdropPath;
+  }
+
+  MediaType get mediaType {
+    return this.media.mediaType;
   }
 }
