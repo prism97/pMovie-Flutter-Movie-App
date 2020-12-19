@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pMovie/services/api_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,6 +9,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final api = ApiService();
+    api.fetchMovieList().then((movieList) {
+      for (var movie in movieList) {
+        movie.printDetails();
+      }
+    });
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

@@ -1,4 +1,4 @@
 enum MediaType {
   movie,
-  tvseries,
+  series,
 }
