@@ -7,6 +7,7 @@ class MovieViewModel extends ChangeNotifier {
 
   Future<void> fetchMovie(int id) async {
     this.movie = await ApiService().fetchMovieDetails(id);
+    this.movie.printDetails();
     notifyListeners();
   }
 }

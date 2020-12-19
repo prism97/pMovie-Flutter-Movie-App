@@ -13,7 +13,7 @@ class Movie {
     @required this.title,
     @required this.releaseDate,
     @required this.voteCount,
-    this.posterPath,
+    @required this.posterPath,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -22,6 +22,7 @@ class Movie {
       title: json['title'],
       releaseDate: DateTime.parse(json['release_date']),
       voteCount: json['vote_count'],
+      posterPath: json['poster_path'],
     );
   }
 
@@ -32,5 +33,6 @@ class Movie {
     print("title: " + this.title);
     print("release date: " + dateFormat.format(this.releaseDate));
     print("vote count: " + this.voteCount.toString());
+    print("poster path: " + this.posterPath);
   }
 }
