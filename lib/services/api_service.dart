@@ -10,7 +10,7 @@ class ApiService {
   static final _baseUrl = "https://api.themoviedb.org/3/";
   static final _apiKey = "1a97f3b8d5deee1d649c0025f3acf75c";
 
-  Future<List<Movie>> fetchMovieList() async {
+  Future<List<Media>> fetchMovieList() async {
     final url = _baseUrl + "discover/movie";
 
     Map<String, dynamic> queryParams = {
@@ -26,13 +26,15 @@ class ApiService {
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
       final Iterable json = body["results"];
-      return json.map((movie) => Movie.fromJson(movie)).toList();
+      return json
+          .map((movie) => Media.fromJson(movie, MediaType.movie))
+          .toList();
     } else {
       throw Exception("Unable to perform request!");
     }
   }
 
-  Future<List<TVSeries>> fetchSeriesList() async {
+  Future<List<Media>> fetchSeriesList() async {
     final url = _baseUrl + "discover/tv";
 
     Map<String, dynamic> queryParams = {
@@ -48,7 +50,9 @@ class ApiService {
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
       final Iterable json = body["results"];
-      return json.map((series) => TVSeries.fromJson(series)).toList();
+      return json
+          .map((series) => Media.fromJson(series, MediaType.series))
+          .toList();
     } else {
       throw Exception("Unable to perform request!");
     }
@@ -82,7 +86,7 @@ class ApiService {
     }
   }
 
-  Future<Movie> fetchMovieDetails(String movieId) async {
+  Future<Movie> fetchMovieDetails(int movieId) async {
     final url = _baseUrl + "movie/$movieId";
 
     Map<String, dynamic> queryParams = {
@@ -101,7 +105,7 @@ class ApiService {
     }
   }
 
-  Future<TVSeries> fetchSeriesDetails(String seriesId) async {
+  Future<TVSeries> fetchSeriesDetails(int seriesId) async {
     final url = _baseUrl + "tv/$seriesId";
 
     Map<String, dynamic> queryParams = {
