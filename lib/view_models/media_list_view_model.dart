@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:pMovie/constants/list_type.dart';
 import 'package:pMovie/services/api_service.dart';
 import 'package:pMovie/view_models/media_view_model.dart';
 
 class MediaListViewModel extends ChangeNotifier {
-  List<MediaViewModel> mediaList = List<MediaViewModel>();
+  List<MediaViewModel> movieList = List<MediaViewModel>();
+  List<MediaViewModel> seriesList = List<MediaViewModel>();
+  List<MediaViewModel> trendingList = List<MediaViewModel>();
 
-  Future<void> fetchMediaList(ListType type) async {
-    var results;
-    switch (type) {
-      case ListType.movies:
-        results = await ApiService().fetchMovieList();
-        break;
-      case ListType.series:
-        results = await ApiService().fetchSeriesList();
-        break;
-      case ListType.trending:
-        results = await ApiService().fetchTrendingList();
-        break;
-      default:
-    }
-
-    this.mediaList =
+  Future<void> fetchMovieList() async {
+    final results = await ApiService().fetchMovieList();
+    this.movieList =
         results.map((item) => MediaViewModel(media: item)).toList();
-    print(this.mediaList);
+    print(this.movieList);
+    notifyListeners();
+  }
+
+  Future<void> fetchSeriesList() async {
+    final results = await ApiService().fetchSeriesList();
+    this.seriesList =
+        results.map((item) => MediaViewModel(media: item)).toList();
+    print(this.seriesList);
+    notifyListeners();
+  }
+
+  Future<void> fetchTrendingList() async {
+    final results = await ApiService().fetchTrendingList();
+    this.trendingList =
+        results.map((item) => MediaViewModel(media: item)).toList();
+    print(this.trendingList);
     notifyListeners();
   }
 }
